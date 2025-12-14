@@ -73,13 +73,14 @@
 					"raw": "https://web.evbtranding.site/register",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"web",
+						"evbtranding",
+						"site"
 					],
-					"port": "5000",
+					
 					"path": [
-						"api",
-						"listings",
-						""
+						"register"
+						
 					]
 				},
 				"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
