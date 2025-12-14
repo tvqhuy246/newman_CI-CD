@@ -1,0 +1,43 @@
+name: API Test with Newman (CI/CD)
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  newman-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Lấy source code
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      # 2. Cài Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      # 3. Cài Newman
+      - name: Install Newman
+        run: npm install -g newman newman-reporter-htmlextra
+
+      # 4. Run API tests
+      - name: Run Postman Collection
+        run: |
+          newman run postman/postman_collection.json \
+          -r cli,htmlextra,junit \
+          --reporter-junit-export results.xml
+
+      # 5. Upload report
+      - name: Upload Newman Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: newman-report
+          path: |
+            newman/
+            results.xml
