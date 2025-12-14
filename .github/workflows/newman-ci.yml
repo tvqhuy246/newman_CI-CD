@@ -2,9 +2,9 @@ name: API Test with Newman (CI/CD)
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "qhuy" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "qhuy" ]
 
 jobs:
   newman-test:
