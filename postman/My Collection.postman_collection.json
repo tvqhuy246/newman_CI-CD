@@ -1,0 +1,345 @@
+{
+	"info": {
+		"_postman_id": "477a6ef2-e418-4d2b-8786-b21fe1bfdbf1",
+		"name": "My Collection",
+		"description": "### Welcome to Postman! This is your first collection. \n\nCollections are your starting point for building and testing APIs. You can use this one to:\n\n• Group related requests\n• Test your API in real-world scenarios\n• Document and share your requests\n\nUpdate the name and overview whenever you’re ready to make it yours.\n\n[Learn more about Postman Collections.](https://learning.postman.com/docs/collections/collections-overview/)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "48914528",
+		"_collection_link": "https://lunar-module-saganist-25262942-4328967.postman.co/workspace/Tr%E1%BA%A7n-V%C3%B5-Quang-Huy's-Workspace~8409a8f1-ecd0-4ec8-86d0-2b0ec872a3db/collection/48914528-477a6ef2-e418-4d2b-8786-b21fe1bfdbf1?action=share&source=collection_link&creator=48914528"
+	},
+	"item": [
+		{
+			"name": "Post data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Register thành công\", () => {",
+							"  pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Response là JSON\", () => {",
+							"  pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"Có user id\", () => {",
+							"  pm.expect(pm.response.json()).to.have.property(\"user\");",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"timestamp\", Date.now());\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-consumer-username",
+						"value": "skibidi",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\": \"auto{{timestamp}}@test.com\",\n  \"password\": \"123456\",\n  \n}\n",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.evbtranding.site/api/auth/me",
+					"protocol": "https",
+					"host": [
+						"api",
+						"evbtranding",
+						"site"
+					],
+					"path": [
+						"api",
+						"auth",
+						"me"
+					]
+				},
+				"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+			},
+			"response": []
+		},
+		{
+			"name": "https://web.evbtranding.site/",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://web.evbtranding.site/",
+					"protocol": "https",
+					"host": [
+						"web",
+						"evbtranding",
+						"site"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "\nhttps://api.evbtranding.site/api/transactions/withdrawals/my-requests",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code hợp lệ\", function () {\r",
+							"  pm.expect([200, 403]).to.include(pm.response.code);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response là JSON\", function () {\r",
+							"  pm.expect(pm.response.headers.get(\"Content-Type\"))\r",
+							"    .to.include(\"application/json\");\r",
+							"});\r",
+							"\r",
+							"const json = pm.response.json();\r",
+							"\r",
+							"if (pm.response.code === 200) {\r",
+							"  pm.test(\"Có danh sách withdrawal\", function () {\r",
+							"    pm.expect(json).to.have.property(\"data\");\r",
+							"    pm.expect(json.data).to.be.an(\"array\");\r",
+							"  });\r",
+							"}\r",
+							"\r",
+							"if (pm.response.code === 403) {\r",
+							"  pm.test(\"User không có quyền withdrawal\", function () {\r",
+							"    pm.expect(json).to.have.property(\"success\", false);\r",
+							"    pm.expect(json).to.have.property(\"message\");\r",
+							"  });\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5NjNhNDcwZDZhZDEyNGZkODFhNTlhNyIsInJvbGUiOiJ1c2VyIiwiaXNBY3RpdmUiOnRydWUsImlhdCI6MTc2ODE1MzIxMywiZXhwIjoxNzY4MjM5NjEzfQ.rr-QkznZyhaZfQm7F2wrHlj1EmcmiOp-m22pV2HT-aI",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://api.evbtranding.site/api/transactions/withdrawals/my-requests",
+					"protocol": "https",
+					"host": [
+						"api",
+						"evbtranding",
+						"site"
+					],
+					"path": [
+						"api",
+						"transactions",
+						"withdrawals",
+						"my-requests"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "\nhttps://api.evbtranding.site/api/auth/users/login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Login OK\", function () {\r",
+							"  pm.expect(pm.response.code).to.eql(200);\r",
+							"});\r",
+							"\r",
+							"const json = pm.response.json();\r",
+							"pm.environment.set(\"token\", json.access_token);\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"huy@gmail.com\",\r\n  \"password\": \"@H123456\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.evbtranding.site/api/auth/users/login",
+					"protocol": "https",
+					"host": [
+						"api",
+						"evbtranding",
+						"site"
+					],
+					"path": [
+						"api",
+						"auth",
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://api.evbtranding.site/api/auth/me",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code 200 or 401/403\", function () {\r",
+							"  pm.expect([200, 401, 403]).to.include(pm.response.code);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response có JSON\", function () {\r",
+							"  pm.expect(pm.response.headers.get(\"Content-Type\"))\r",
+							"    .to.include(\"application/json\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5NjNhNDcwZDZhZDEyNGZkODFhNTlhNyIsInJvbGUiOiJ1c2VyIiwiaXNBY3RpdmUiOnRydWUsImlhdCI6MTc2ODE1MzIxMywiZXhwIjoxNzY4MjM5NjEzfQ.rr-QkznZyhaZfQm7F2wrHlj1EmcmiOp-m22pV2HT-aI",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://api.evbtranding.site/api/auth/me",
+					"protocol": "https",
+					"host": [
+						"api",
+						"evbtranding",
+						"site"
+					],
+					"path": [
+						"api",
+						"auth",
+						"me"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://api.evbtranding.site/api/listings/696458004a9261d3a97be8c6",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code hợp lệ\", function () {\r",
+							"  pm.expect([200, 401, 403, 404]).to.include(pm.response.code);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response là JSON\", function () {\r",
+							"  pm.expect(pm.response.headers.get(\"Content-Type\"))\r",
+							"    .to.include(\"application/json\");\r",
+							"});\r",
+							"\r",
+							"const json = pm.response.json();\r",
+							"\r",
+							"\r",
+							"\r",
+							"if (pm.response.code === 404) {\r",
+							"  pm.test(\"Not Found logic\", function () {\r",
+							"    pm.expect(json).to.have.property(\"message\");\r",
+							"  });\r",
+							"}\r",
+							"\r",
+							"if ([401,403].includes(pm.response.code)) {\r",
+							"  pm.test(\"Unauthorized / Forbidden\", function () {\r",
+							"    pm.expect(json).to.have.property(\"message\");\r",
+							"  });\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5NjNhNDcwZDZhZDEyNGZkODFhNTlhNyIsInJvbGUiOiJ1c2VyIiwiaXNBY3RpdmUiOnRydWUsImlhdCI6MTc2ODE1MzIxMywiZXhwIjoxNzY4MjM5NjEzfQ.rr-QkznZyhaZfQm7F2wrHlj1EmcmiOp-m22pV2HT-aI",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://api.evbtranding.site/api/listings/696458004a9261d3a97be8c6",
+					"protocol": "https",
+					"host": [
+						"api",
+						"evbtranding",
+						"site"
+					],
+					"path": [
+						"api",
+						"listings",
+						"696458004a9261d3a97be8c6"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

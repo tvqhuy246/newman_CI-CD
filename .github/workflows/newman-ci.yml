@@ -28,7 +28,7 @@ jobs:
       # 4. Run API tests
       - name: Run Postman Collection
         run: |
-          newman run postman/register_tests.postman_collection.json \
+          newman run postman/My Collection.postman_collection.json \
           -r cli,htmlextra,junit \
           --reporter-junit-export results.xml
 

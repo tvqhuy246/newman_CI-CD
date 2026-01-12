@@ -1,0 +1,10 @@
+case_name,email,password,expected_status,expect_success,expect_error,remove_header,use_http
+Valid Register,testuser1@gmail.com,Password@123,200,true,false,false,false
+Email Exists,testuser1@gmail.com,Password@123,400,false,true,false,false
+Invalid Email,invalid-email,Password@123,400,false,true,false,false
+Weak Password,testuser2@gmail.com,123,400,false,true,false,false
+Empty Body,,,400,false,true,false,false
+Missing Email,,Password@123,400,false,true,false,false
+Missing Password,testuser3@gmail.com,,400,false,true,false,false
+Missing Header,testuser4@gmail.com,Password@123,415,false,true,true,false
+HTTP Redirect,testuser5@gmail.com,Password@123,301,false,false,false,true
